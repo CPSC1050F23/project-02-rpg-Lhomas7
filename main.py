@@ -59,7 +59,7 @@ def main():
         if user_action in inputs['exit']:
             print('Where would you like to go?')
             user_exit = input().strip().lower()
-            if user_exit.capitalize() in adventure_map.get_room_exits():
+            if user_exit.capitalize() in adventure_map.get_room_exits(current_room):
                 print(adventure_map.get_room(user_exit))
                 current_room = user_exit.capitalize()
             else:
