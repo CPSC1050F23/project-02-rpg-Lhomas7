@@ -51,6 +51,7 @@ def main():
     adventure_map.add_room(Room("Trophy Room", "Spacious room with oak wood as far as the eye can see, shelves filled to the brim with trophies and obscure collections, it really makes you wonder who they belong to.", ["Bedroom", "Library"], [trophy]))
     adventure_map.add_room(Room("Bedroom", "A lavished bed adorns the center of this room, with long curtains, beautiful rugs, and gilded furniture acting as little details to truly make this a great bedroom. You see a trapdoor hidden under the bed.", ["Study", "Trophy Room"], [picture]))
     print(adventure_map.get_room('Study'))
+    actions = ['read','play','unlock','inspect']
     want_exit = False
     current_room = 'Study'
     while not want_exit:
@@ -69,16 +70,21 @@ def main():
             else:
                 print(f'{adventure_map.get_room(current_room)}\nYou find some items around you: {adventure_map.get_room_items(current_room)}')
         elif user_action in inputs['pickup']:
-            inventory.add_inventory(adventure_map.current_room.get_items()[0])
-            adventure_map.current_room.get_items().remove(adventure_map.current_room.get_items()[0])
-        for item in inventory.get_inventory():
-            if user_action == 'unlock' and current_room == 'Bedroom':
-                print('You unlock the trapdoor under the bed. You crawl through it and into the real world.\nParadiso awaits.\nCongratulations.')
-                want_exit = True
-                break
-            if user_action == item.get_action():
-                print(item.get_item_content)
-        if user_action == 'inventory':
+            inventory.add_inventory(adventure_map.get_list_items(current_room)[0])
+            adventure_map.get_list_items(current_room).remove(adventure_map.get_list_items(current_room)[0])
+        elif user_action == 'unlock' and current_room == 'Bedroom' and key in inventory.get_inventory():
+            print('You unlock the trapdoor under the bed. You crawl through it and into the real world.\nParadiso awaits.\nCongratulations.')
+            want_exit = True
+            break
+        elif user_action in actions:
+            are_done = False
+            for item in inventory.get_inventory():
+                if item.get_action() == user_action:
+                    print(item.get_item_content())
+                    are_done = True
+            if not are_done:
+                print(f"I don't have anything to {user_action} ")
+        elif user_action == 'inventory':
             inventory.print_inventory()
         else:
             print(f"I don't know the word '{user_action}")
