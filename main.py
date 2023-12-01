@@ -56,7 +56,7 @@ def main():
     current_room = 'Study'
     while not want_exit:
         print('Please choose an action:')
-        user_action = input().strip().lower()
+        user_action = input().lower().strip()
         if user_action in inputs['exit']:
             print('Where would you like to go?')
             user_exit = input().strip().lower()
