@@ -3,7 +3,7 @@ from room_not_found_error import RoomNotFoundError
 
 class AdventureMap:
     #initializes the map, defines how to add a room and go to a room in the map.
-    def __init__(self, room = Room(), error = ExitNotFoundError()):
+    def __init__(self, room = Room(), error = RoomNotFoundError()):
         self.map = {}
         self.error = error
         self.room = room
