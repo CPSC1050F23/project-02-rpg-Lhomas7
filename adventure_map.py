@@ -24,6 +24,4 @@ class AdventureMap:
                 user_room = key
                 count += 1
     def get_room_exits(self,room):
-        for item in self.rooms:
-            if item.get_name() == room:
-                return self.rooms[item].get_exits()
+        return self.room_exits[room]

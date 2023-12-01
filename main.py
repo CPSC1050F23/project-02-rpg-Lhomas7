@@ -59,13 +59,9 @@ def main():
         if user_action in inputs['exit']:
             print('Where would you like to go?')
             user_exit = input().strip().lower()
-            output = None
-            for i in range(len(adventure_map.get_room_exits(current_room))):
-                if user_exit.capitalize() == adventure_map.get_room_exits(current_room)[i]:
-                    print(adventure_map.get_room(user_exit))
-                    current_room = user_exit.capitalize()
-                    output = adventure_map.get_room(user_exit)
-            if output == None:
+            if user_exit in adventure_map.get_room_exits(current_room):
+                print(adventure_map.get_room(user_exit))
+            else:
                 print(RoomNotFoundError)    
         elif user_action in inputs['lookaround']:
             if len(adventure_map.current_room.get_items()) == 0:
