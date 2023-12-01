@@ -1,8 +1,8 @@
 class Item:
-    def __init__(self, name, description, item_content):
+    def __init__(self, name, description):
         self.name = name
         self.description = description
-        self.item_content = item_content
+        self.item_content = None
         self.action = None
     def get_item(self):
         return self.name
