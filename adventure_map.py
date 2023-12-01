@@ -7,12 +7,14 @@ class AdventureMap:
         self.map = {}
         self.error = error
         self.room = room
-        self.room_exits = {}        
+        self.room_exits = {}
+        self.rooms = []        
     def add_room(self, room_layout):
         self.room = room_layout
         self.room.list_exits()
         self.map[self.room.get_name()] = self.room.__str__()
         self.room_exits[self.room.get_name()] = self.room.get_exits()
+        self.rooms.append(room_layout)
     def get_room(self, user_room):
         key_list = list(self.map.keys())
         count = 0
@@ -22,7 +24,6 @@ class AdventureMap:
                 user_room = key
                 count += 1
     def get_room_exits(self,room):
-        key_list = list(self.map.keys())
-        for key in key_list:
-            if room == key.lower():
-                return self.room_exits[key]
+        for item in self.rooms:
+            if item.get_name() == room:
+                return self.rooms[item].get_exits()
