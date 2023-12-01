@@ -60,8 +60,8 @@ def main():
             print('Where would you like to go?')
             user_exit = input().strip().lower()
             output = None
-            for room in adventure_map.get_room_exits(current_room):
-                if user_exit.capitalize() == room:
+            for i in range(len(adventure_map.get_room_exits(current_room))):
+                if user_exit.capitalize() == adventure_map.get_room_exits(current_room)[i]:
                     print(adventure_map.get_room(user_exit))
                     current_room = user_exit.capitalize()
                     output = adventure_map.get_room(user_exit)
