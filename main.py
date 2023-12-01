@@ -62,6 +62,7 @@ def main():
             user_exit = input().strip().lower()
             if user_exit.capitalize() in adventure_map.get_room_exits(current_room):
                 print(adventure_map.get_room(user_exit.capitalize()))
+                current_room = user_exit.capitalize()
             else:
                 RoomNotFoundError    
         elif user_action in inputs['lookaround']:
