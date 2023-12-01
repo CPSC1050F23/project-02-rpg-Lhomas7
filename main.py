@@ -71,8 +71,11 @@ def main():
             else:
                 print(f'{adventure_map.get_room(current_room)}\nYou find some items around you: {adventure_map.get_room_items(current_room)}')
         elif user_action in inputs['pickup']:
-            inventory.add_inventory(adventure_map.get_list_items(current_room)[0])
-            adventure_map.get_list_items(current_room).remove(adventure_map.get_list_items(current_room)[0])
+            if len(adventure_map.get_room_items(current_room)) == 0:
+                print('Nothing to pickup')
+            else:
+                inventory.add_inventory(adventure_map.get_list_items(current_room)[0])
+                adventure_map.get_list_items(current_room).remove(adventure_map.get_list_items(current_room)[0])
         elif user_action == 'unlock' and current_room == 'Bedroom' and key in inventory.get_inventory():
             print('You unlock the trapdoor under the bed. You crawl through it and into the real world.\nParadiso awaits.\nCongratulations.')
             want_exit = True
