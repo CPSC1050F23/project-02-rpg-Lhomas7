@@ -17,7 +17,7 @@ class AdventureMap:
         self.map[self.room.get_name()] = self.room.__str__()
         self.room_exits[self.room.get_name()] = self.room.get_exits()
         self.rooms.append(room_layout)
-        self.items[self.room.get_name()] = self.room.str_items()
+        self.items[self.room.get_name()] = self.room.string_of_items()
         self.inv_items[self.room.get_name()] = self.room.get_items()
     def get_room(self, user_room):
         key_list = list(self.map.keys())

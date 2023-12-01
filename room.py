@@ -14,7 +14,7 @@ class Room:
         return self.description
     def get_exits(self):
         return self.exits
-    def str_items(self):
+    def string_of_items(self):
         for item in self.items:
             self.str_items += item.get_item()
             self.str_items += ' '
