@@ -12,6 +12,13 @@ def main():
     
     # Initialize player inventory 
     inventory = Inventory()
+
+    # Input variations
+    inputs = {"exit": ["exit", "leave"],
+              "lookaround": ["look around", "lookaround", "look"],
+              "pickup": ["pick up","pickup", "take", "grab"],
+              }
+
     
     # Initialize Items
     book = Item("Book", "\"A Tale of Two Cities by Charles Dickens\". The greatest novel ever written.")
@@ -43,12 +50,46 @@ def main():
     adventure_map.add_room(Room("Holodeck", "A room that can disguise itself in a variety of ways. Experience a lush, humid rainforest, a speakeasy of the 1920’s, or the dungeons of Cooper Library.", ["Library"], [key]))
     adventure_map.add_room(Room("Trophy Room", "Spacious room with oak wood as far as the eye can see, shelves filled to the brim with trophies and obscure collections, it really makes you wonder who they belong to.", ["Bedroom", "Library"], [trophy]))
     adventure_map.add_room(Room("Bedroom", "A lavished bed adorns the center of this room, with long curtains, beautiful rugs, and gilded furniture acting as little details to truly make this a great bedroom. You see a trapdoor hidden under the bed.", ["Study", "Trophy Room"], [picture]))
-   
-    # Input variations
-    inputs = {"exit": ["exit", "leave"],
-              "lookaround": ["look around", "lookaround", "look"],
-              "pickup": ["pick up","pickup", "take", "grab"],
-              }
+    print(adventure_map.get_room('Study'))
+    want_exit = False
+    current_room = 'Study'
+    while not want_exit:
+        print('Please choose an action:')
+        user_action = input().strip().lower()
+        if user_action in inputs['exit']:
+            print('Where would you like to go?')
+            user_exit = input().strip().lower()
+            if user_exit.capitalize() in adventure_map.current_room.get_exits():
+                print(adventure_map.get_room(user_exit))
+                current_room = user_exit.capitalize()
+            else:
+                print(RoomNotFoundError)
+        elif user_action in inputs['lookaround']:
+            if len(adventure_map.current_room.get_items()) == 0:
+                print(f'{adventure_map.current_room.get_description()}\nYou find some items around you: There are no items around here.')
+            else:
+                print(f'{adventure_map.current_room.get_description()}\nYou find some items around you: {adventure_map.current_room.list_items()}')
+        elif user_action in inputs['pickup']:
+            inventory.add_inventory(adventure_map.current_room.get_items()[0])
+            adventure_map.current_room.get_items().remove(adventure_map.current_room.get_items()[0])
+        for item in inventory.get_inventory():
+            if user_action == 'unlock' and current_room == 'Bedroom':
+                print('You unlock the trapdoor under the bed. You crawl through it and into the real world.\nParadiso awaits.\nCongratulations.')
+                want_exit = True
+                break
+            if user_action == item.get_action():
+                print(item.get_item_content)
+        if user_action == 'inventory':
+            inventory.print_inventory()
+        else:
+            print(f"I don't know the word '{user_action}")
+        
+
+
+
+
+
+
 
 
 
