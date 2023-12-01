@@ -64,7 +64,7 @@ def main():
             else:
                 RoomNotFoundError    
         elif user_action in inputs['lookaround']:
-            if len(adventure_map.current_room.get_items()) == 0:
+            if len(adventure_map.get_room_items(current_room)) == 0:
                 print(f'{adventure_map.get_room(current_room)}\nYou find some items around you: There are no items around here.')
             else:
                 print(f'{adventure_map.get_room(current_room)}\nYou find some items around you: {adventure_map.get_room_items(current_room)}')
