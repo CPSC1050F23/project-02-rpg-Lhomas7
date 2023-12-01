@@ -25,4 +25,4 @@ class AdventureMap:
         key_list = list(self.map.keys())
         for key in key_list:
             if room == key.lower():
-                return self.room_exits[room]
+                return self.room_exits[key]
