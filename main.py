@@ -59,15 +59,15 @@ def main():
         if user_action in inputs['exit']:
             print('Where would you like to go?')
             user_exit = input().strip().lower()
-            if user_exit in adventure_map.get_room_exits(current_room):
-                print(adventure_map.get_room(user_exit))
+            if user_exit.capitalize() in adventure_map.get_room_exits(current_room):
+                print(adventure_map.get_room(user_exit.capitalize()))
             else:
-                print(RoomNotFoundError)    
+                RoomNotFoundError    
         elif user_action in inputs['lookaround']:
             if len(adventure_map.current_room.get_items()) == 0:
                 print(f'{adventure_map.get_room(current_room)}\nYou find some items around you: There are no items around here.')
             else:
-                print(f'{adventure_map.get_room(current_room)}\nYou find some items around you: {adventure_map.current_room.list_items()}')
+                print(f'{adventure_map.get_room(current_room)}\nYou find some items around you: {adventure_map.get_room_items(current_room)}')
         elif user_action in inputs['pickup']:
             inventory.add_inventory(adventure_map.current_room.get_items()[0])
             adventure_map.current_room.get_items().remove(adventure_map.current_room.get_items()[0])
