@@ -49,19 +49,22 @@ def main():
     adventure_map.add_room(Room("Kitchen", "This amazing culinary art studio has it all: cheese cellar, wine racks, and a 16 stove burner. With its pizza oven, it makes for the perfect Italian getaway.", ["Study", "Guest Room"], [fork, pizza_cutter]))
     adventure_map.add_room(Room("Study", "Do you love being disturbed while working? This room has it all. It is the central hub to the whole house. It has a giant wall of computers and amazing lighting, but doors that exit out into numerous different rooms.", ["Kitchen", "Library", "Bedroom"]))
     adventure_map.add_room(Room("Holodeck", "A room that can disguise itself in a variety of ways. Experience a lush, humid rainforest, a speakeasy of the 1920’s, or the dungeons of Cooper Library.", ["Library"], [key]))
-    adventure_map.add_room(Room("Trophy Room", "Spacious room with oak wood as far as the eye can see, shelves filled to the brim with trophies and obscure collections, it really makes you wonder who they belong to.", ["Bedroom", "Library"], [trophy]))
+    adventure_map.add_room(Room("Trophy Room", "Spacious room with oak wood as far as the eye can see, shelves filled to the brim with trophies and obscure collections, it really makes you wonder who they belong to.", ["Bedroom", "Library","Holodeck"], [trophy]))
     adventure_map.add_room(Room("Bedroom", "A lavished bed adorns the center of this room, with long curtains, beautiful rugs, and gilded furniture acting as little details to truly make this a great bedroom. You see a trapdoor hidden under the bed.", ["Study", "Trophy Room"], [picture]))
     adventure_map.add_room(Room('none','none',[],[]))
     print(adventure_map.get_room('Study'))
     actions = ['read','play','unlock','inspect']
-    want_exit = False
     num_steps_of_game = 0
     current_room = 'Study'
-    while not want_exit:
+    while True:
         print('Please choose an action:')
         user_action = input().lower().strip()
         num_steps_of_game += 1
-        if user_action in inputs['exit']:
+        if user_action == 'unlock' and current_room == 'Bedroom' and 'Key' in inventory.get_inventory():
+            print('You unlock the trapdoor under the bed. You crawl through it and into the real world.\nParadiso awaits.\nCongratulations.')
+            num_steps_of_game += 1
+            break
+        elif user_action in inputs['exit']:
             print('Where would you like to go?')
             user_exit = input().lower().strip()
             user_exits = user_exit.split()
@@ -97,13 +100,12 @@ def main():
                 print(f'Picked up {adventure_map.get_rooms_and_items(current_room)[0].get_item()}.')
                 inventory.add_inventory(adventure_map.get_rooms_and_items(current_room)[0])
                 adventure_map.remove_item(current_room)
-                num_steps_of_game += 1             
+                num_steps_of_game += 1  
         elif user_action in actions:
-            if user_action == 'unlock' and current_room == 'Bedroom' and 'Key' in inventory.get_inventory():
+            """if user_action == 'unlock' and current_room == 'Bedroom' and 'Key' in inventory.get_inventory():
                 print('You unlock the trapdoor under the bed. You crawl through it and into the real world.\nParadiso awaits.\nCongratulations.')
                 num_steps_of_game += 1
-                want_exit = True
-                break
+                want_exit = True"""
             are_done = False
             for item in inventory.get_inventory():
                 if item.get_action() == user_action:
@@ -119,6 +121,10 @@ def main():
         else:
             print(f'I {word_string} know the word "{user_action}".')
             num_steps_of_game += 1
+    num_steps_of_game = str(num_steps_of_game)
+    with open('gamelog.txt','w') as f:
+        f.write(num_steps_of_game)
+    f.close()
         
 
 
@@ -132,6 +138,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-with open('gamelog.txt','w') as f:
-    f.write(num_steps_of_game)
-f.close()
