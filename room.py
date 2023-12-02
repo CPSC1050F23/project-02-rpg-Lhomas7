@@ -12,6 +12,7 @@ class Room:
         self.item_contents = {}
         self.item_actions = {}
         self.item_list = []
+        self.list_items = []
     def get_name(self):
         return self.name
     def get_description(self):
@@ -22,9 +23,12 @@ class Room:
         for item in self.items:
             self.item_list.append(item.get_item())
         return self.item_list
-    def string_of_items(self, items):
+    def string_of_items(self):
+        list_items = []
+        for item in self.items:
+            list_items.append(item.get_item())
         first_item = True
-        for item in items:
+        for item in list_items:
             if first_item:
                 first_item = False
                 self.str_items += item
@@ -58,6 +62,11 @@ class Room:
     def get_items(self):
         return self.items
     def remove_item(self):
-        self.item_list = self.item_list.remove(self.item_list[0])
+        self.list_items = self.list_items.remove(self.list_items[0])
+        return self.list_items
     def get_item_list(self):
-        return self.item_list
+        list_items = []
+        for item in self.items:
+            list_items.append(item.get_item())
+        self.list_items = list_items
+        return self.list_items

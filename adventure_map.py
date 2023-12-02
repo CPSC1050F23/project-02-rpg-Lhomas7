@@ -18,13 +18,14 @@ class AdventureMap:
         self.item_actions = {}
         self.room_item_content = {}
         self.rooms_names = {}
+        self.rooms_item_names = {}
     def add_room(self, room_layout):
         self.room = room_layout
         self.room.list_exits()
         self.map[self.room.get_name()] = self.room.__str__()
         self.room_exits[self.room.get_name()] = self.room.get_exits()
         self.rooms.append(room_layout)
-        self.items[self.room.get_name()] = self.room.string_of_items(self.room.list_of_items())
+        self.items[self.room.get_name()] = self.room.string_of_items()
         self.inv_items[self.room.get_name()] = self.room.list_of_items()
         self.room_descriptions[self.room.get_name()] = self.room.lookaround_room()
         self.room_item_description[self.room.get_name()] = self.room.get_item_descriptions()
@@ -32,6 +33,7 @@ class AdventureMap:
             self.item_actions[item] = self.room.get_item_actions()[item]
             self.room_item_content[item] = self.room.get_item_contents()[item]
         self.rooms_names[self.room.get_name()] = self.room
+        self.rooms_item_names[self.room.get_name()] = self.room.get_item_list()
     def get_room(self, user_room):
         key_list = list(self.map.keys())
         count = 0
@@ -57,13 +59,13 @@ class AdventureMap:
     def get_items(self):
         return self.room.get_items
     def remove_item(self,room_name):
-        for room in list(self.rooms_names.keys()):
-            if room == room_name:
-                self.rooms_names[room_name].remove_item()
+        return self.rooms_names[room_name].remove_item()
     def get_new_list(self,room_name):
         for room in list(self.rooms_names.keys()):
             if room == room_name:
                 return self.rooms_names[room_name].list_of_items()
+    def get_room_item_names(self, room_name):
+        return self.rooms_item_names[room_name]
 
         
 

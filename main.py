@@ -77,17 +77,19 @@ def main():
             else:
                 print(exit_error.__str__(user_exit))    
         elif user_action in inputs['lookaround']:
-            if len(adventure_map.get_list_items(current_room)) == 0:#len(adventure_map.get_room_items(current_room)) == 0:
+            #print(adventure_map.get_room_item_names(current_room))
+            if len(adventure_map.get_room_item_names(current_room)) == 0:#len(adventure_map.get_room_items(current_room)) == 0:
                 print(f'{adventure_map.get_room_description(current_room)}\nYou find some items around you: There are no items around here.')
             else:
+                adventure_map.get_room_item_names(current_room)
                 print(f'{adventure_map.get_room_description(current_room)}\nYou find some items around you: {adventure_map.get_room_items(current_room)}.')
         elif user_action in inputs['pickup']:
-            if len(adventure_map.get_list_items(current_room)) == 0:#len(adventure_map.get_room_items(current_room)) == 0:
+            if len(adventure_map.get_room_item_names(current_room)) == 0:#len(adventure_map.get_room_items(current_room)) == 0:
                 print('Nothing to pickup')
             else:              
                 print(f'Picked up {adventure_map.get_list_items(current_room)[0]}.')
                 inventory.add_inventory(adventure_map.get_list_items(current_room)[0],adventure_map.get_item_description(adventure_map.get_list_items(current_room)[0], current_room))
-                adventure_map.get_list_items(current_room).remove(adventure_map.get_list_items(current_room)[0])             
+                adventure_map.remove_item(current_room)#adventure_map.get_list_items(current_room).remove(adventure_map.get_list_items(current_room)[0])             
         elif user_action in actions:
             if user_action == 'unlock' and current_room == 'Bedroom' and 'Key' in inventory.get_inventory():
                 print('You unlock the trapdoor under the bed. You crawl through it and into the real world.\nParadiso awaits.\nCongratulations.')
@@ -118,10 +120,8 @@ def main():
 if __name__ == "__main__":
     main()
 """
-user_exit = input().lower().strip()
-user_exits = user_exit.split()
-user_exit = ''
-for item in user_exits:
-    item = item.capitalize()
-    user_exit += item + ' '
+my_set = ['yes','no','maybe']
+my_set.remove(my_set[0])
+print(my_set)
+print(my_set[0])
 """
