@@ -76,15 +76,15 @@ def main():
             else:
                 inventory.add_inventory(adventure_map.get_list_items(current_room)[0])
                 adventure_map.get_list_items(current_room).remove(adventure_map.get_list_items(current_room)[0])
-        elif user_action == 'unlock' and current_room == 'Bedroom' and key in inventory.get_inventory():
-            print('You unlock the trapdoor under the bed. You crawl through it and into the real world.\nParadiso awaits.\nCongratulations.')
-            want_exit = True
-            break
         elif user_action in actions:
+            if user_action == 'unlock' and current_room == 'Bedroom' and 'Key' in inventory.get_inventory():
+                print('You unlock the trapdoor under the bed. You crawl through it and into the real world.\nParadiso awaits.\nCongratulations.')
+                want_exit = True
+                break
             are_done = False
             for item in inventory.get_inventory():
-                if item.get_action() == user_action:
-                    print(item.get_item_content())
+                if adventure_map.get_item_actions(item) == user_action:
+                    print(adventure_map.get_item_content(item))
                     are_done = True
             if not are_done:
                 print(f"I don't have anything to {user_action}. ")
