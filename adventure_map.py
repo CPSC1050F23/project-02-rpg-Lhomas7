@@ -83,6 +83,8 @@ class AdventureMap:
         return self.str_items
     def get_rooms_and_items(self,room_name):
         return self.room_items[room_name]
+    def print_room_items(self):
+        return self.room_items 
 
         
 
