@@ -59,7 +59,6 @@ def main():
     while True:
         print('Please choose an action:')
         user_action = input().lower().strip()
-        num_steps_of_game += 1
         if user_action in inputs['exit']:
             print('Where would you like to go?')
             user_exit = input().lower().strip()
@@ -119,7 +118,7 @@ def main():
             num_steps_of_game += 1
     num_steps_of_game = str(num_steps_of_game)
     with open('gamelog.txt','w') as f:
-        f.write(num_steps_of_game)
+        f.write(f'Congratulations! You finished the game in {num_steps_of_game} steps.')
     f.close()
         
 
