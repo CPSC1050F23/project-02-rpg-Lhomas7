@@ -28,7 +28,7 @@ def main():
     
     fork = Item("Fork", "A conveniently pronged eating utensil. Now I just need something to eat.")
     
-    pizza_cutter = Item("Pizza Cutter", "This must be left over from the tragedy that occured at Adkins's Pizzeria!")
+    pizza_cutter = Item("Pizza Cutter", "This must be left over from the tragedy that occurred at Adkins's Pizzeria")
     
     harmonica = Item("Harmonica", "A mouth organ. This might keep me entertained for a couple of hours.")
     harmonica.set_action("play")
