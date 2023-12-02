@@ -25,7 +25,7 @@ def main():
     book.set_action("read")
     book.set_item_content("You skip to the ending to read Sydney Carton's final speech:\n\tIt is a far, far better thing that I do, than I have ever done; it is a far far better rest that I go to than I have ever known.\nWhat a perfect ending...")
     
-    fork = Item("Fork", "A conviently pronged eating utensil. Now I just need something to eat.")
+    fork = Item("Fork", "A conveniently pronged eating utensil. Now I just need something to eat.")
     
     pizza_cutter = Item("Pizza Cutter", "This must be left over from the tragedy that occured at Adkins's Pizzeria!")
     
@@ -77,14 +77,14 @@ def main():
             else:
                 print(exit_error.__str__(user_exit))    
         elif user_action in inputs['lookaround']:
-            if len(adventure_map.get_room_items(current_room)) == 0:
+            if len(adventure_map.get_list_items(current_room)) == 0:#len(adventure_map.get_room_items(current_room)) == 0:
                 print(f'{adventure_map.get_room_description(current_room)}\nYou find some items around you: There are no items around here.')
             else:
                 print(f'{adventure_map.get_room_description(current_room)}\nYou find some items around you: {adventure_map.get_room_items(current_room)}.')
         elif user_action in inputs['pickup']:
-            if len(adventure_map.get_room_items(current_room)) == 0:
+            if len(adventure_map.get_list_items(current_room)) == 0:#len(adventure_map.get_room_items(current_room)) == 0:
                 print('Nothing to pickup')
-            else:               
+            else:              
                 print(f'Picked up {adventure_map.get_list_items(current_room)[0]}.')
                 inventory.add_inventory(adventure_map.get_list_items(current_room)[0],adventure_map.get_item_description(adventure_map.get_list_items(current_room)[0], current_room))
                 adventure_map.get_list_items(current_room).remove(adventure_map.get_list_items(current_room)[0])             

@@ -24,7 +24,7 @@ class AdventureMap:
         self.map[self.room.get_name()] = self.room.__str__()
         self.room_exits[self.room.get_name()] = self.room.get_exits()
         self.rooms.append(room_layout)
-        self.items[self.room.get_name()] = self.room.string_of_items()
+        self.items[self.room.get_name()] = self.room.string_of_items(self.room.list_of_items())
         self.inv_items[self.room.get_name()] = self.room.list_of_items()
         self.room_descriptions[self.room.get_name()] = self.room.lookaround_room()
         self.room_item_description[self.room.get_name()] = self.room.get_item_descriptions()
@@ -60,6 +60,10 @@ class AdventureMap:
         for room in list(self.rooms_names.keys()):
             if room == room_name:
                 self.rooms_names[room_name].remove_item()
+    def get_new_list(self,room_name):
+        for room in list(self.rooms_names.keys()):
+            if room == room_name:
+                return self.rooms_names[room_name].list_of_items()
 
         
 
