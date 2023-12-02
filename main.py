@@ -55,10 +55,12 @@ def main():
     print(adventure_map.get_room('Study'))
     actions = ['read','play','unlock','inspect']
     want_exit = False
+    num_steps_of_game = 0
     current_room = 'Study'
     while not want_exit:
         print('Please choose an action:')
         user_action = input().lower().strip()
+        num_steps_of_game += 1
         if user_action in inputs['exit']:
             print('Where would you like to go?')
             user_exit = input().lower().strip()
@@ -72,40 +74,51 @@ def main():
                     first_item = False
                     continue
                 item = item.capitalize()
-                user_exit += ' ' + item 
+                user_exit += ' ' + item
             if user_exit in adventure_map.get_room_exits(current_room):
                 print(adventure_map.get_room(user_exit))
                 current_room = user_exit
+                num_steps_of_game += 1
             else:
-                print(exit_error.__str__(user_exit))    
+                print(exit_error.__str__(user_exit))
+                num_steps_of_game += 1  
         elif user_action in inputs['lookaround']:
             if len(adventure_map.get_rooms_and_items(current_room)) == 0:
                 print(f'{adventure_map.get_room_description(current_room)}\nYou find some items around you: There are no items around here.')
+                num_steps_of_game += 1
             else:
                 print(f'{adventure_map.get_room_description(current_room)}\nYou find some items around you: {adventure_map.get_string_of_items(current_room)}.')
+                num_steps_of_game += 1
         elif user_action in inputs['pickup']:
             if len(adventure_map.get_rooms_and_items(current_room)) == 0:
                 print('Nothing to pickup')
+                num_steps_of_game += 1
             else:              
                 print(f'Picked up {adventure_map.get_rooms_and_items(current_room)[0].get_item()}.')
                 inventory.add_inventory(adventure_map.get_rooms_and_items(current_room)[0])
-                adventure_map.remove_item(current_room)             
+                adventure_map.remove_item(current_room)
+                num_steps_of_game += 1             
         elif user_action in actions:
             if user_action == 'unlock' and current_room == 'Bedroom' and 'Key' in inventory.get_inventory():
                 print('You unlock the trapdoor under the bed. You crawl through it and into the real world.\nParadiso awaits.\nCongratulations.')
+                num_steps_of_game += 1
                 want_exit = True
                 break
             are_done = False
             for item in inventory.get_inventory():
                 if item.get_action() == user_action:
                     print(item.get_item_content())
+                    num_steps_of_game += 1
                     are_done = True
             if not are_done:
                 print(f"I don't have anything to {user_action}. ")
+                num_steps_of_game += 1
         elif user_action == 'inventory':
             inventory.print_inventory()
+            num_steps_of_game += 1
         else:
             print(f'I {word_string} know the word "{user_action}".')
+            num_steps_of_game += 1
         
 
 
@@ -119,9 +132,6 @@ def main():
 
 if __name__ == "__main__":
     main()
-"""
-my_set = ['yes','no','maybe']
-my_set.remove(my_set[0])
-print(my_set)
-print(my_set[0])
-"""
+with open('gamelog.txt','w') as f:
+    f.write(num_steps_of_game)
+f.close()
