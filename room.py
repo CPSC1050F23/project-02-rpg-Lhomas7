@@ -23,9 +23,14 @@ class Room:
             item_list.append(item.get_item())
         return item_list
     def string_of_items(self):
+        first_item = True
         for item in self.items:
+            if first_item:
+                first_item = False
+                self.str_items += item.get_item()
+                continue
+            self.str_items += ', '
             self.str_items += item.get_item()
-            self.str_items += ' '
         return self.str_items
     def get_item_descriptions(self):
         for item in self.items:

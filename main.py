@@ -59,17 +59,28 @@ def main():
         user_action = input().lower().strip()
         if user_action in inputs['exit']:
             print('Where would you like to go?')
-            user_exit = input().strip().lower()
-            if user_exit.capitalize() in adventure_map.get_room_exits(current_room):
-                print(adventure_map.get_room(user_exit.capitalize()))
-                current_room = user_exit.capitalize()
+            user_exit = input().lower().strip()
+            user_exits = user_exit.split()
+            user_exit = ''
+            first_item = True
+            for item in user_exits:
+                if first_item:
+                    item = item.capitalize()
+                    user_exit += item
+                    first_item = False
+                    continue
+                item = item.capitalize()
+                user_exit += ' ' + item 
+            if user_exit in adventure_map.get_room_exits(current_room):
+                print(adventure_map.get_room(user_exit))
+                current_room = user_exit
             else:
                 print(exit_error.__str__(user_exit))    
         elif user_action in inputs['lookaround']:
             if len(adventure_map.get_room_items(current_room)) == 0:
                 print(f'{adventure_map.get_room_description(current_room)}\nYou find some items around you: There are no items around here.')
             else:
-                print(f'{adventure_map.get_room_description(current_room)}\nYou find some items around you: {adventure_map.get_room_items(current_room)}')
+                print(f'{adventure_map.get_room_description(current_room)}\nYou find some items around you: {adventure_map.get_room_items(current_room)}.')
         elif user_action in inputs['pickup']:
             if len(adventure_map.get_room_items(current_room)) == 0:
                 print('Nothing to pickup')
@@ -106,3 +117,11 @@ def main():
 
 if __name__ == "__main__":
     main()
+"""
+user_exit = input().lower().strip()
+user_exits = user_exit.split()
+user_exit = ''
+for item in user_exits:
+    item = item.capitalize()
+    user_exit += item + ' '
+"""
