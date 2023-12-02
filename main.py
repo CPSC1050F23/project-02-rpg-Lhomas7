@@ -60,11 +60,7 @@ def main():
         print('Please choose an action:')
         user_action = input().lower().strip()
         num_steps_of_game += 1
-        if user_action == 'unlock' and current_room == 'Bedroom' and 'Key' in inventory.get_inventory():
-            print('You unlock the trapdoor under the bed. You crawl through it and into the real world.\nParadiso awaits.\nCongratulations.')
-            num_steps_of_game += 1
-            break
-        elif user_action in inputs['exit']:
+        if user_action in inputs['exit']:
             print('Where would you like to go?')
             user_exit = input().lower().strip()
             user_exits = user_exit.split()
@@ -102,10 +98,10 @@ def main():
                 adventure_map.remove_item(current_room)
                 num_steps_of_game += 1  
         elif user_action in actions:
-            """if user_action == 'unlock' and current_room == 'Bedroom' and 'Key' in inventory.get_inventory():
+            if user_action == 'unlock' and current_room == 'Bedroom' and key in inventory.get_inventory():
                 print('You unlock the trapdoor under the bed. You crawl through it and into the real world.\nParadiso awaits.\nCongratulations.')
                 num_steps_of_game += 1
-                want_exit = True"""
+                break
             are_done = False
             for item in inventory.get_inventory():
                 if item.get_action() == user_action:
