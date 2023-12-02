@@ -57,3 +57,5 @@ class Room:
         return room_des
     def get_items(self):
         return self.items
+    def remove_item(self):
+        self.items.remove(self.items[0])

@@ -14,6 +14,10 @@ class AdventureMap:
         self.item_description = {}
         self.item_get_content = {}    
         self.room_descriptions = {}
+        self.room_item_description = {}
+        self.item_actions = {}
+        self.room_item_content = {}
+        self.rooms_names = {}
     def add_room(self, room_layout):
         self.room = room_layout
         self.room.list_exits()
@@ -23,6 +27,11 @@ class AdventureMap:
         self.items[self.room.get_name()] = self.room.string_of_items()
         self.inv_items[self.room.get_name()] = self.room.list_of_items()
         self.room_descriptions[self.room.get_name()] = self.room.lookaround_room()
+        self.room_item_description[self.room.get_name()] = self.room.get_item_descriptions()
+        for item in self.room.list_of_items():
+            self.item_actions[item] = self.room.get_item_actions()[item]
+            self.room_item_content[item] = self.room.get_item_contents()[item]
+        self.rooms_names[self.room.get_name()] = self.room
     def get_room(self, user_room):
         key_list = list(self.map.keys())
         count = 0
@@ -34,14 +43,23 @@ class AdventureMap:
     def get_list_items(self, room):
         return self.inv_items[room]
     def get_item_actions(self,item_name):
-        return self.room.get_item_actions()[item_name]
-    def get_item_description(self,item_name):
-        return self.room.get_item_descriptions()[item_name]
-    def get_item_content(self, item_name):
-        return self.room.get_item_contents()[item_name]
+        return self.item_actions[item_name]#edited
+    def get_item_description(self,item_name,room):
+        return self.room_item_description[room][item_name]
+    def get_item_content(self, item_name):#edited
+        return self.room_item_content[item_name]
     def get_room_items(self,room):
         return self.items[room]
     def get_room_exits(self,room):
         return self.room_exits[room]
     def get_room_description(self,room):
         return self.room_descriptions[room]
+    def get_items(self):
+        return self.room.get_items
+    def remove_item(self,room_name):
+        for room in list(self.rooms_names.keys()):
+            if room == room_name:
+                self.rooms_names[room_name].remove_item()
+
+        
+
