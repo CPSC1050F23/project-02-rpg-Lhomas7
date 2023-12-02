@@ -6,6 +6,7 @@ from room_not_found_error import RoomNotFoundError
 
 def main():
     print("\nWelcome to the Adkins house! This time you won't be able to leave so easily. Goodluck.")
+    word_string = "don't"
 
     # Initialize map w/room storage
     adventure_map = AdventureMap()
@@ -103,7 +104,7 @@ def main():
         elif user_action == 'inventory':
             inventory.print_inventory()
         else:
-            print(f"I don't know the word '{user_action}'.")
+            print(f'I {word_string} know the word "{user_action}".')
         
 
 
