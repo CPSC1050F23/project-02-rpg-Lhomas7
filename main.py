@@ -19,7 +19,7 @@ def main():
               "pickup": ["pick up","pickup", "take", "grab"],
               }
 
-    
+    exit_error = RoomNotFoundError()
     # Initialize Items
     book = Item("Book", "\"A Tale of Two Cities by Charles Dickens\". The greatest novel ever written.")
     book.set_action("read")
@@ -64,18 +64,19 @@ def main():
                 print(adventure_map.get_room(user_exit.capitalize()))
                 current_room = user_exit.capitalize()
             else:
-                RoomNotFoundError    
+                print(exit_error.__str__(user_exit))    
         elif user_action in inputs['lookaround']:
             if len(adventure_map.get_room_items(current_room)) == 0:
-                print(f'{adventure_map.get_room(current_room)}\nYou find some items around you: There are no items around here.')
+                print(f'{adventure_map.get_room_description(current_room)}\nYou find some items around you: There are no items around here.')
             else:
-                print(f'{adventure_map.get_room(current_room)}\nYou find some items around you: {adventure_map.get_room_items(current_room)}')
+                print(f'{adventure_map.get_room_description(current_room)}\nYou find some items around you: {adventure_map.get_room_items(current_room)}')
         elif user_action in inputs['pickup']:
             if len(adventure_map.get_room_items(current_room)) == 0:
                 print('Nothing to pickup')
             else:
+                print(f'Picked up {adventure_map.get_list_items(current_room)[0]}.')
                 inventory.add_inventory(adventure_map.get_list_items(current_room)[0])
-                adventure_map.get_list_items(current_room).remove(adventure_map.get_list_items(current_room)[0])
+                adventure_map.get_list_items(current_room).remove(adventure_map.get_list_items(current_room)[0])               
         elif user_action in actions:
             if user_action == 'unlock' and current_room == 'Bedroom' and 'Key' in inventory.get_inventory():
                 print('You unlock the trapdoor under the bed. You crawl through it and into the real world.\nParadiso awaits.\nCongratulations.')

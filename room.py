@@ -47,5 +47,8 @@ class Room:
     def __str__(self):
         room_des = f"{self.name}: {self.description}\n\nExits:\n{self.str_exit}"
         return room_des
+    def lookaround_room(self):
+        room_des = f'{self.description}'
+        return room_des
     def get_items(self):
         return self.items

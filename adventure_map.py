@@ -13,6 +13,7 @@ class AdventureMap:
         self.inv_items = {}
         self.item_description = {}
         self.item_get_content = {}    
+        self.room_descriptions = {}
     def add_room(self, room_layout):
         self.room = room_layout
         self.room.list_exits()
@@ -21,6 +22,7 @@ class AdventureMap:
         self.rooms.append(room_layout)
         self.items[self.room.get_name()] = self.room.string_of_items()
         self.inv_items[self.room.get_name()] = self.room.list_of_items()
+        self.room_descriptions[self.room.get_name()] = self.room.lookaround_room()
     def get_room(self, user_room):
         key_list = list(self.map.keys())
         count = 0
@@ -41,3 +43,5 @@ class AdventureMap:
         return self.items[room]
     def get_room_exits(self,room):
         return self.room_exits[room]
+    def get_room_description(self,room):
+        return self.room_descriptions[room]
