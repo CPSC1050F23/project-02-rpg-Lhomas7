@@ -1,12 +1,13 @@
 class Inventory:
     def __init__(self):
-        self.inventory = {}
-    def add_inventory(self,item_name,item_description):
-        self.inventory[item_name] = item_description
+        self.inventory = []
+        self.item = None
+    def add_inventory(self,item):
+        self.inventory.append(item)
     def print_inventory(self):
         print('INVENTORY:')
-        for item in list(self.inventory.keys()):
-            print(f'\t{item}-{self.inventory[item]}')
+        for item in self.inventory:
+            print(f'\t{item.get_item()}- {item.get_description()}')
     def get_inventory(self):
         return self.inventory
         

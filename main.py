@@ -77,19 +77,17 @@ def main():
             else:
                 print(exit_error.__str__(user_exit))    
         elif user_action in inputs['lookaround']:
-            #print(adventure_map.get_room_item_names(current_room))
-            if len(adventure_map.get_room_item_names(current_room)) == 0:#len(adventure_map.get_room_items(current_room)) == 0:
+            if len(adventure_map.get_rooms_and_items(current_room)) == 0:
                 print(f'{adventure_map.get_room_description(current_room)}\nYou find some items around you: There are no items around here.')
             else:
-                adventure_map.get_room_item_names(current_room)
-                print(f'{adventure_map.get_room_description(current_room)}\nYou find some items around you: {adventure_map.get_room_items(current_room)}.')
+                print(f'{adventure_map.get_room_description(current_room)}\nYou find some items around you: {adventure_map.get_string_of_items(current_room)}.')
         elif user_action in inputs['pickup']:
-            if len(adventure_map.get_room_item_names(current_room)) == 0:#len(adventure_map.get_room_items(current_room)) == 0:
+            if len(adventure_map.get_rooms_and_items(current_room)) == 0:
                 print('Nothing to pickup')
             else:              
-                print(f'Picked up {adventure_map.get_list_items(current_room)[0]}.')
-                inventory.add_inventory(adventure_map.get_list_items(current_room)[0],adventure_map.get_item_description(adventure_map.get_list_items(current_room)[0], current_room))
-                adventure_map.remove_item(current_room)#adventure_map.get_list_items(current_room).remove(adventure_map.get_list_items(current_room)[0])             
+                print(f'Picked up {adventure_map.get_rooms_and_items(current_room)[0].get_item()}.')
+                inventory.add_inventory(adventure_map.get_rooms_and_items(current_room)[0])
+                adventure_map.remove_item(current_room)             
         elif user_action in actions:
             if user_action == 'unlock' and current_room == 'Bedroom' and 'Key' in inventory.get_inventory():
                 print('You unlock the trapdoor under the bed. You crawl through it and into the real world.\nParadiso awaits.\nCongratulations.')
@@ -97,8 +95,8 @@ def main():
                 break
             are_done = False
             for item in inventory.get_inventory():
-                if adventure_map.get_item_actions(item) == user_action:
-                    print(adventure_map.get_item_content(item))
+                if item.get_action() == user_action:
+                    print(item.get_item_content())
                     are_done = True
             if not are_done:
                 print(f"I don't have anything to {user_action}. ")
