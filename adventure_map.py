@@ -1,6 +1,6 @@
 from room import Room
 from room_not_found_error import RoomNotFoundError
-
+#AdventureMap class to store all of the rooms items and actions the user can take
 class AdventureMap:
     #initializes the map, defines how to add a room and go to a room in the map.
     def __init__(self, room = Room(), error = RoomNotFoundError()):
@@ -45,16 +45,16 @@ class AdventureMap:
                 return self.map[key]
                 user_room = key
                 count += 1
-    def get_list_items(self, room):
-        return self.inv_items[room]
-    def get_item_actions(self,item_name):
-        return self.item_actions[item_name]#edited
-    def get_item_description(self,item_name,room):
-        return self.room_item_description[room][item_name]
-    def get_item_content(self, item_name):#edited
-        return self.room_item_content[item_name]
-    def get_room_items(self,room):
-        return self.items[room]
+    """def get_list_items(self, room):
+        return self.inv_items[room]"""
+    """def get_item_actions(self,item_name):
+        return self.item_actions[item_name]"""
+    """def get_item_description(self,item_name,room):
+        return self.room_item_description[room][item_name]"""
+    """def get_item_content(self, item_name):
+        return self.room_item_content[item_name]"""
+    """def get_room_items(self,room):
+        return self.items[room]"""
     def get_room_exits(self,room):
         return self.room_exits[room]
     def get_room_description(self,room):
@@ -63,13 +63,12 @@ class AdventureMap:
         return self.room.get_items
     def remove_item(self,room_name):
         self.room_items[room_name].remove(self.room_items[room_name][0])
-        #return self.rooms_names[room_name].remove_item()
-    def get_new_list(self,room_name):
+    """def get_new_list(self,room_name):
         for room in list(self.rooms_names.keys()):
             if room == room_name:
-                return self.rooms_names[room_name].list_of_items()
-    def get_room_item_names(self, room_name):
-        return self.rooms_item_names[room_name]
+                return self.rooms_names[room_name].list_of_items()"""
+    """def get_room_item_names(self, room_name):
+        return self.rooms_item_names[room_name]"""
     def get_string_of_items(self, room_name):
         self.str_items = ''
         first_item = True
@@ -83,8 +82,8 @@ class AdventureMap:
         return self.str_items
     def get_rooms_and_items(self,room_name):
         return self.room_items[room_name]
-    def print_room_items(self):
-        return self.room_items 
+    """def print_room_items(self):
+        return self.room_items """
 
         
 
