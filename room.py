@@ -7,63 +7,44 @@ class Room:
         self.exits = exits
         self.str_exit = ''
         self.items = items
-        self.str_items = ''
         self.item_descriptions = {}
-        self.item_contents = {}
-        self.item_actions = {}
-        self.item_list = []
         self.list_items = []
+    #returns the name of the room
     def get_name(self):
         return self.name
+    #returns the description of the room
     def get_description(self):
         return self.description
+    #returns the exits of the room
     def get_exits(self):
         return self.exits
-    def list_of_items(self):
-        for item in self.items:
-            self.item_list.append(item.get_item())
-        return self.item_list
-    def string_of_items(self):
-        list_items = []
-        for item in self.items:
-            list_items.append(item.get_item())
-        first_item = True
-        for item in list_items:
-            if first_item:
-                first_item = False
-                self.str_items += item
-                continue
-            self.str_items += ', '
-            self.str_items += item
-        return self.str_items
+    #returns each item in the room's description
     def get_item_descriptions(self):
         for item in self.items:
             self.item_descriptions[item.get_item()] = item.get_description()
         return self.item_descriptions
-    def get_item_contents(self):
-        for item in self.items:
-            self.item_contents[item.get_item()] = item.get_item_content()
-        return self.item_contents
+    #returns a list version of the room's exits
     def list_exits(self):
         for room in self.exits:
             self.str_exit += str(room)
             self.str_exit += '\n'
         return self.str_exit
-    def get_item_actions(self):
-        for item in self.items:
-            self.item_actions[item.get_item()] = item.get_action()
-        return self.item_actions
+    #returns the string of the room and its description
     def __str__(self):
         room_des = f"{self.name}: {self.description}\n\nExits:\n{self.str_exit}"
         return room_des
+    #returns the room's descrption specified for the action lookaround
     def lookaround_room(self):
         room_des = f'{self.description}'
         return room_des
+    #returns the items in the room
     def get_items(self):
         return self.items
+    #removes an item from the list of items and returns that list
     def remove_item(self):
         self.list_items = self.list_items.remove(self.list_items[0])
         return self.list_items
+    #returns a list of items in the room
     def get_item_list(self):
         list_items = []
         for item in self.items:
