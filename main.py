@@ -1,3 +1,26 @@
+"""
+Author:         Landon Thomas
+Date:           12/7/23
+Assignment:     Project 02 RPG
+Course:         CPSC1050
+Course Section:    020
+
+CODE DESCRIPTION:
+This code is effectively a game, it takes user input and navigates through a house that holds
+all different rooms, items, and actions those items and the user can perform. The user has
+an inventory in which they hold their items as they naviaget the house. At the end of the user's
+game, the code will write a log to the gamelog file displaying the number of steps it took the user
+to complete the game. It makes use of classes, modules, files, functions, and loops.
+"""
+
+
+
+
+
+
+
+
+
 from room import Room
 from adventure_map import AdventureMap
 from inventory import Inventory
